@@ -1,0 +1,18 @@
+import sqlite3
+
+conn = sqlite3.connect('database.db')
+cursor = conn.cursor()
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS groups (
+                    group_id INTEGER PRIMARY KEY,
+                    group_name TEXT)''')
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS students (
+                    student_id INTEGER PRIMARY KEY,
+                    student_name TEXT,
+                    group_id INTEGER,
+                    FOREIGN KEY(group_id) REFERENCES groups(group_id))''')
+
+conn.commit()
+
+conn.close()
